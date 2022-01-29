@@ -1,3 +1,21 @@
+# Demo link
+
+https://r1z11.github.io/gists/
+
+# Features
+
+View public gists
+Refresh to view public gists
+Search public gists by username
+View file types, names and sizes as badges on each gist
+Click on gist to view forks page and more details
+
+# Screenshots
+
+src/assets/images/gists-page.png
+
+src/assets/images/forks-page.png
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

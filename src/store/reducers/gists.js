@@ -9,7 +9,7 @@ const defaultState = {
     forksError: null
 }
 
-export default (state = defaultState, action) => {
+const gistsReducer = (state = defaultState, action) => {
     switch (action.type) {
         case SET_GISTS: {
             return {
@@ -57,3 +57,5 @@ export default (state = defaultState, action) => {
             return state
     }
 }
+
+export default gistsReducer

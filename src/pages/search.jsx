@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_GISTS, GET_FORKS } from "../store/actionTypes";
+import { GET_GISTS } from "../store/actionTypes";
 
 function Search() {
 
@@ -10,7 +10,6 @@ function Search() {
     const gists = useSelector((state) => state.gists.gists);
     const gistsError = useSelector((state) => state.gists.error);
     const loading = useSelector((state) => state.gists.loading);
-    const forks = useSelector((state) => state.gists.forks);
 
     const [query, setQuery] = useState("")
 
@@ -23,7 +22,7 @@ function Search() {
     // Watch for changes in gists, gist error and loading indicator
     // Update state after changes
     useEffect(() => {
-    }, [gists, gistsError, loading, forks]);
+    }, [gists, gistsError, loading]);
 
     // Refresh the list of public gists
     const refresh = () => {
@@ -40,19 +39,10 @@ function Search() {
         dispatch({ type: GET_GISTS, payload: "/users/" + query + "/gists" })
     }
 
-    // Get gist forks by gist id
-    const getForks = (id) => {
-        dispatch({ type: GET_FORKS, payload: "/gists/" + id + "/forks?per_page=3" })
-    }
-
-    // Show gist forks by gist id
-    const showForks = (id) => {
-        const filteredForks = forks.filter(fork => fork.id !== id)
-        return (<div>
-            {filteredForks.map(item => (
-                <p>{item}</p>
-            ))}
-        </div>)
+    const search = (event) => {
+        if (event.key === 'Enter') {
+            searchUserGists()
+        }
     }
 
     return (
@@ -62,10 +52,11 @@ function Search() {
 
             {/* Search input */}
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Search gists by GitHub username" aria-label="Search gists by GitHub username" aria-describedby="search-button" value={query} onChange={(e) => handleInput(e.target.value)} />
+                <input type="text" class="form-control" placeholder="Search gists by GitHub username" aria-label="Search gists by GitHub username" aria-describedby="search-button" value={query} onChange={(e) => handleInput(e.target.value)} onKeyDown={e => search(e)} />
                 <button class="btn btn-primary" type="button" id="search-button" onClick={searchUserGists}>Search</button>
             </div>
 
+            {/* Refresh button */}
             <button type="button" class="btn btn-light btn-sm text-dark mb-5" onClick={refresh}>Refresh</button>
 
             {/* List of gists and loading indicator */}

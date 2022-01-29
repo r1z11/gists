@@ -6,7 +6,7 @@ import { GET_FORKS } from "../store/actionTypes";
 function Forks() {
 
     const location = useLocation();
-    // console.log(location)
+    const id = location.search.replace("?", "");
 
     const dispatch = useDispatch();
 
@@ -14,25 +14,26 @@ function Forks() {
     const loadingForks = useSelector((state) => state.gists.loadingForks);
     const forks = useSelector((state) => state.gists.forks);
 
-    // Load public gists when the page loads
+    // Load gists' forks when the page loads
     useEffect(() => {
-        const id = location.search.replace("?", "");
         dispatch({ type: GET_FORKS, payload: "/gists/" + id })
     }, []);
 
     // Watch for changes in forks, forks error and loading indicator
     // Update state after changes
     useEffect(() => {
-        console.log(forks)
-    }, [forksError, loadingForks, forks]);
+    }, [forksError, loadingForks]);
 
     // Show the top 3 forks
     const showForks = () => {
         const newForks = []
         for (let i = 0; i < 3; i++) {
-            if (forks?.forks[i]) newForks.push(forks?.forks[i])
+            try {
+                if (forks?.forks[i]) newForks.push(forks?.forks[i])
+            } catch (error) {
+                console.log(error)
+            }
         }
-        console.log("new forks", newForks)
 
         return newForks.length > 0 ? newForks.map((item) => (
             <div key={item.id} className="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
@@ -52,11 +53,14 @@ function Forks() {
         <div className="p-5 w-100">
             {/* Title */}
             <h1 className="mb-4">Gist Forks</h1>
-            <h4 className="mb-4">{ forks?.owner?.avatar_url ? <img src={forks.owner.avatar_url} alt="avatar-url" className="rounded-circle flex-shrink-0 me-3" width="42" height="42"/> : null }
-            {forks.owner.login}</h4>
+            {/* Avatar and Username */}
+            <h4 className="mb-4">{forks?.owner?.avatar_url ? <img src={forks.owner.avatar_url} alt="avatar-url" className="rounded-circle flex-shrink-0 me-3" width="42" height="42" /> : null} {forks?.owner?.login}</h4>
+            {/* Description */}
             <h4 className="mb-3">{forks?.description}</h4>
-            <a className="btn btn-primary btn-sm mb-3 me-3" href={forks?.git_pull_url} target="_blank">Pull</a>
-            <a className="btn btn-primary btn-sm mb-3" href={forks?.git_push_url} target="_blank">Push</a>
+            {/* Pull and Push buttons */}
+            <a className="btn btn-primary btn-sm mb-3 me-3" href={forks?.git_pull_url} target="_blank" rel="noreferrer">Pull</a>
+            <a className="btn btn-primary btn-sm mb-3" href={forks?.git_push_url} target="_blank" rel="noreferrer">Push</a>
+            {/* Dates */}
             <p className="my-3">Created at: {new Date(forks?.created_at).toUTCString()}</p>
             <p className="mb-3">Updated at: {new Date(forks?.updated_at).toUTCString()}</p>
 
@@ -73,7 +77,8 @@ function Forks() {
             {/* Error message */}
             {forksError ? <h4 className="text-center mt-5 text-danger">{forksError}</h4> : null}
 
-            <Link to="/" className="text-center text-primary mt-5">Go back</Link>
+            {/* Back to Gists */}
+            <Link to="/" className="text-center text-primary mt-5">Back to Gists</Link>
         </div>
     );
 }
