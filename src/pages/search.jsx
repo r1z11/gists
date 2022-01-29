@@ -67,11 +67,14 @@ function Search() {
             </div> :
                 <div className="list-group">
                     {gists.map((item) => (
-                        <Link key={item.id} to={{ pathname: "/forks", search: item.id, state: item }} className="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                        <div key={item.id} className="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                             <img src={item.owner.avatar_url} alt="avatar-url" className="rounded-circle flex-shrink-0" width="32" height="32" />
                             <div className="d-flex gap-2 w-100 justify-content-between">
-                                <div>
-                                    <h6 className="mb-2">{item.owner.login}</h6>
+                                <div className="col">
+                                    <Link to={{ pathname: "/forks", search: item.id, state: item }}>
+                                        <h6 className="mb-3">{item.owner.login}</h6>
+                                    </Link>
+                                    <p className="mb-3">{item.description}</p>
                                     {
                                         Object.keys(item.files).map((file, i) => {
                                             const obj = item.files[file]
@@ -122,11 +125,19 @@ function Search() {
                                         })
                                     }
                                 </div>
-                                <small className="opacity-50 text-wrap mb-2">{new Date(item.updated_at).toUTCString()}</small>
+
+                                <div className="col-3">
+                                    <small className="opacity-50 text-wrap mb-2">{new Date(item.updated_at).toUTCString()}</small>
+
+                                    <a className="btn btn-primary btn-sm my-3" href={item.html_url} target="_blank" rel="noreferrer">Fork on GitHub</a>
+                                </div>
                             </div>
-                        </Link>
+                        </div>
                     ))}
                 </div>}
+
+            {/* No results */}
+            {gists.length < 1 ? <h4 className="text-center mt-5 text-secondary">Nothing found</h4> : null}
 
             {/* Error message */}
             {gistsError ? <h4 className="text-center mt-5 text-danger">{gistsError}</h4> : null}

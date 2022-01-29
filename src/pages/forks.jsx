@@ -6,6 +6,7 @@ import { GET_FORKS } from "../store/actionTypes";
 function Forks() {
 
     const location = useLocation();
+    // console.log(location)
     const id = location.search.replace("?", "");
 
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function Forks() {
 
     // Load gists' forks when the page loads
     useEffect(() => {
-        dispatch({ type: GET_FORKS, payload: "/gists/" + id })
+        dispatch({ type: GET_FORKS, payload: "/gists/" + id + "/forks"})
     }, []);
 
     // Watch for changes in forks, forks error and loading indicator
@@ -29,7 +30,7 @@ function Forks() {
         const newForks = []
         for (let i = 0; i < 3; i++) {
             try {
-                if (forks?.forks[i]) newForks.push(forks?.forks[i])
+                if (forks[i]) newForks.push(forks[i])
             } catch (error) {
                 console.log(error)
             }
@@ -42,6 +43,7 @@ function Forks() {
                     <div>
                         <h6 className="mb-2">{item.owner.login}</h6>
                         <p className="my-2 opacity-75">{item.description}</p>
+                        <a className="btn btn-primary btn-sm my-3" href={item.html_url} target="_blank" rel="noreferrer">View Fork on GitHub</a>
                     </div>
                     <small className="opacity-50 text-wrap mb-2">{new Date(item.updated_at).toUTCString()}</small>
                 </div>
@@ -51,18 +53,8 @@ function Forks() {
 
     return (
         <div className="p-5 w-100">
-            {/* Title */}
-            <h1 className="mb-4">Gist Forks</h1>
-            {/* Avatar and Username */}
-            <h4 className="mb-4">{forks?.owner?.avatar_url ? <img src={forks.owner.avatar_url} alt="avatar-url" className="rounded-circle flex-shrink-0 me-3" width="42" height="42" /> : null} {forks?.owner?.login}</h4>
-            {/* Description */}
-            <h4 className="mb-3">{forks?.description}</h4>
-            {/* Pull and Push buttons */}
-            <a className="btn btn-primary btn-sm mb-3 me-3" href={forks?.git_pull_url} target="_blank" rel="noreferrer">Pull</a>
-            <a className="btn btn-primary btn-sm mb-3" href={forks?.git_push_url} target="_blank" rel="noreferrer">Push</a>
-            {/* Dates */}
-            <p className="my-3">Created at: {new Date(forks?.created_at).toUTCString()}</p>
-            <p className="mb-3">Updated at: {new Date(forks?.updated_at).toUTCString()}</p>
+            
+            <h1 className="mb-5">Gist Forks</h1>
 
             {/* List of top 3 forks and loading indicator */}
             {loadingForks ? <div className="text-center">
@@ -78,7 +70,7 @@ function Forks() {
             {forksError ? <h4 className="text-center mt-5 text-danger">{forksError}</h4> : null}
 
             {/* Back to Gists */}
-            <Link to="/" className="text-center text-primary mt-5">Back to Gists</Link>
+            <div className="text-primary mt-5"><Link to="/">Back to Gists</Link></div>
         </div>
     );
 }
