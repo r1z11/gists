@@ -1,10 +1,12 @@
-import { SET_GISTS, GET_GISTS_FAILED, LOADING_GISTS, SET_FORKS, LOADING_FORKS, RESET } from '../actionTypes'
+import { SET_GISTS, GET_GISTS_FAILED, LOADING_GISTS, SET_FORKS, LOADING_FORKS, GET_FORKS_FAILED, RESET } from '../actionTypes'
 
 const defaultState = {
     gists: [],
     error: null,
     loading: false,
-    forks: []
+    forks: [],
+    loadingForks: false,
+    forksError: null
 }
 
 export default (state = defaultState, action) => {
@@ -25,23 +27,28 @@ export default (state = defaultState, action) => {
         case LOADING_GISTS: {
             return {
                 ...state,
-                loading: action.payload
+                loading: action.payload,
+                error: null
             }
         }
         case SET_FORKS: {
-            const newArray = [...state.forks, ...action.payload];
             return {
                 ...state,
-                forks: newArray
+                forks: action.payload,
+                forksError: null
             }
         }
         case LOADING_FORKS: {
-            const index = state.forks.findIndex(fork => fork.id !== action.payload.id);
-            const newArray = [...state.forks];
-            newArray[index].loading = action.payload.loading;
             return {
                 ...state,
-                forks: newArray
+                loadingForks: action.payload,
+                forksError: null
+            }
+        }
+        case GET_FORKS_FAILED: {
+            return {
+                ...state,
+                forksError: action.payload
             }
         }
         case RESET:

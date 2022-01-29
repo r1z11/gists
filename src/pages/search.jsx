@@ -76,7 +76,7 @@ function Search() {
             </div> :
                 <div className="list-group">
                     {gists.map((item) => (
-                        <Link key={item.id} to={{ pathname: "/forks", search: item.url, state: item }} className="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                        <Link key={item.id} to={{ pathname: "/forks", search: item.id, state: item }} className="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                             <img src={item.owner.avatar_url} alt="avatar-url" className="rounded-circle flex-shrink-0" width="32" height="32" />
                             <div className="d-flex gap-2 w-100 justify-content-between">
                                 <div>
@@ -119,6 +119,9 @@ function Search() {
                                                 case "text/csv":
                                                     cl = "badge bg-success m-2 text-wrap"
                                                     break;
+                                                case "text/css":
+                                                    cl = "badge bg-danger m-2 text-wrap"
+                                                    break;
                                                 default:
                                                     cl = "badge bg-primary m-2 text-wrap"
                                             }
@@ -127,10 +130,6 @@ function Search() {
                                             )
                                         })
                                     }
-                                    {/* <Link className="my-2 opacity-75" to={{ pathname: "/forks", state: item }}>View forks</Link> */}
-
-                                    {/* {getForks(item.id)}
-                                    {showForks(item.id)} */}
                                 </div>
                                 <small className="opacity-50 text-wrap mb-2">{new Date(item.updated_at).toUTCString()}</small>
                             </div>

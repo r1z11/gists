@@ -22,19 +22,19 @@ export function* getGists(action) {
 
 // Get forks
 export function* getForks(action) {
-    // yield put({ type: LOADING_FORKS, payload: true })
+    yield put({ type: LOADING_FORKS, payload: true })
 
     try {
         const response = yield call(axios.get, apiUrl + action.payload)
 
-        console.log('Get forks response', response.data)
+        // console.log('Get forks', response.data.forks)
         const forks = response.data
 
-        // yield put({ type: SET_FORKS, payload: forks })
-        // yield put({ type: LOADING_FORKS, payload: false })
+        yield put({ type: SET_FORKS, payload: forks })
+        yield put({ type: LOADING_FORKS, payload: false })
     } catch (error) {
         console.log('Get forks error', error)
-        // yield put({ type: GET_FORKS_FAILED, payload: error.message })
-        // yield put({ type: LOADING_FORKS, payload: false })
+        yield put({ type: GET_FORKS_FAILED, payload: error.message })
+        yield put({ type: LOADING_FORKS, payload: false })
     }
 }
