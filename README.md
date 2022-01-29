@@ -16,9 +16,9 @@ Click on gist to view forks page and more details
 
 # Screenshots
 
-src/assets/images/gists-page.png
+https://github.com/r1z11/gists/blob/master/src/assets/images/gists-page.png?raw=true
 
-src/assets/images/forks-page.png
+https://github.com/r1z11/gists/blob/master/src/assets/images/forks-page.png?raw=true
 
 # Getting Started with Create React App
 
