@@ -1,6 +1,12 @@
-# Demo link
+# Demo links
+
+Heroku
 
 https://amber-gists.herokuapp.com/
+
+GitHub pages
+
+https://r1z11.github.io/gists/
 
 # Features
 

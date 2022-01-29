@@ -68,7 +68,7 @@ function Search() {
                 <div className="list-group">
                     {gists.map((item) => (
                         <div key={item.id} className="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                            <img src={item.owner.avatar_url} alt="avatar-url" className="rounded-circle flex-shrink-0" width="32" height="32" />
+                            <img src={item.owner.avatar_url} alt="avatar-url" className="rounded-circle flex-shrink-0" width="52" height="52" />
                             <div className="d-flex gap-2 w-100 justify-content-between">
                                 <div className="col">
                                     <Link to={{ pathname: "/forks", search: item.id, state: item }}>
