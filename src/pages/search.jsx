@@ -46,7 +46,7 @@ function Search() {
     }
 
     return (
-        <div className="p-5 w-100">
+        <div className="p-md-5 w-100 p-sm-2 p-lg-5 p-xl-5">
             {/* Title */}
             <h1 className="text-center mb-5">Gists</h1>
 
@@ -70,11 +70,11 @@ function Search() {
                         <div key={item.id} className="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                             <img src={item.owner.avatar_url} alt="avatar-url" className="rounded-circle flex-shrink-0" width="52" height="52" />
                             <div className="d-flex gap-2 w-100 justify-content-between">
-                                <div className="col">
+                                <div className="col-6">
                                     <Link to={{ pathname: "/forks", search: item.id, state: item }}>
-                                        <h6 className="mb-3">{item.owner.login}</h6>
+                                        <h6 className="mb-3 text-wrap">{item.owner.login}</h6>
                                     </Link>
-                                    <p className="mb-3">{item.description}</p>
+                                    <p className="mb-3 text-wrap">{item.description}</p>
                                     {
                                         Object.keys(item.files).map((file, i) => {
                                             const obj = item.files[file]
@@ -129,7 +129,7 @@ function Search() {
                                 <div className="col-3">
                                     <small className="opacity-50 text-wrap mb-2">{new Date(item.updated_at).toUTCString()}</small>
 
-                                    <a className="btn btn-primary btn-sm my-3" href={item.html_url} target="_blank" rel="noreferrer">Fork on GitHub</a>
+                                    <a className="btn btn-primary btn-sm my-3 text-wrap" href={item.html_url} target="_blank" rel="noreferrer">Fork on GitHub</a>
                                 </div>
                             </div>
                         </div>
