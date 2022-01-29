@@ -52,7 +52,7 @@ function Forks() {
     }
 
     return (
-        <div className="p-md-5 w-100 p-sm-2 p-lg-5 p-xl-5">
+        <div className="p-2 w-100">
             
             <h1 className="mb-5">Gist Forks</h1>
 
