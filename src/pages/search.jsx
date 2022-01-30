@@ -46,7 +46,7 @@ function Search() {
     }
 
     return (
-        <div className="p-xs-2 p-sm-2 p-md-5 p-lg-5 p-xl-5 w-100">
+        <div className="p-xs-2 p-sm-2 p-md-5 p-lg-5 p-xl-5 container-fluid">
             {/* Title */}
             <h1 className="text-center mb-5">Gists</h1>
 

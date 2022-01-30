@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_FORKS } from "../store/actionTypes";
 
 function Forks() {
 
     const location = useLocation();
-    // console.log(location)
     const id = location.search.replace("?", "");
+
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -17,7 +18,7 @@ function Forks() {
 
     // Load gists' forks when the page loads
     useEffect(() => {
-        dispatch({ type: GET_FORKS, payload: "/gists/" + id + "/forks"})
+        dispatch({ type: GET_FORKS, payload: "/gists/" + id + "/forks" })
     }, []);
 
     // Watch for changes in forks, forks error and loading indicator
@@ -52,9 +53,9 @@ function Forks() {
     }
 
     return (
-        <div className="p-xs-2 p-sm-2 p-md-5 p-lg-5 p-xl-5 w-100">
-            
-            <h1 className="mb-5">Gist Forks</h1>
+        <div className="p-xs-2 p-sm-2 p-md-5 p-lg-5 p-xl-5 container-fluid">
+
+            <h1 className="m-5">Gist Forks</h1>
 
             {/* List of top 3 forks and loading indicator */}
             {loadingForks ? <div className="text-center">
@@ -70,7 +71,7 @@ function Forks() {
             {forksError ? <h4 className="text-center mt-5 text-danger">{forksError}</h4> : null}
 
             {/* Back to Gists */}
-            <div className="text-primary mt-5"><Link to="/">Back to Gists</Link></div>
+            <button className="btn btn-link mt-5" onClick={() => navigate(-1)}>Back to Gists</button>
         </div>
     );
 }
